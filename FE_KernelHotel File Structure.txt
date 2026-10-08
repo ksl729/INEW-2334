@@ -1,0 +1,38 @@
+File Structure
+
+The includes/ folder holds reusable pieces (like your database connection and header/footer) so the code is not repeating every page. Instead, we utilize include or require statements.
+The admin/ folder keeps all admin pages together, making it easy to apply a login check to the whole folder.
+
+
+
+
+kernel-hotel/
+│
+├── index.php                  (Home Page)
+├── rooms.php                  (Rooms Page)
+├── book.php                   (Book a Room)
+├── process_booking.php        (Handles booking form submission)
+├── confirmation.php           (Booking Confirmation)
+├── reviews.php                (Guest Reviews)
+├── process_review.php         (Handles review submission)
+│
+├── admin/
+│   ├── dashboard.php          (Admin Dashboard)
+│   ├── manage_reservations.php
+│   ├── manage_rooms.php
+│   ├── manage_guests.php
+│   ├── manage_contact_reviews.php
+│
+├── includes/
+│   ├── db_connect.php         (Database connection settings)
+│   ├── header.php             (Shared HTML header/nav)
+│   ├── footer.php             (Shared HTML footer)
+│
+├── css/
+│   └── styles.css
+│
+├── js/
+│   └── scripts.js
+│
+└── images/
+└── (hotel photos, room photos, etc.)

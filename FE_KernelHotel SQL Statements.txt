@@ -1,0 +1,53 @@
+SQL CREATE TABLE Statements
+
+SETUP:
+
+- Whenever a row changes, ON UPDATE CURRENT_TIMESTAMP updates date_updated automatically 
+
+- CHECK (rating BETWEEN 1 AND 5) enforces valid star ratings at the database level
+
+- Foreign keys on Bookings enforce the "each booking must be connected to one guest and one room" rule.
+
+===========================
+
+CREATE TABLE Guests (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+email VARCHAR(150) NOT NULL,
+phone VARCHAR(20),
+mailing_address VARCHAR(255)
+);
+
+CREATE TABLE Rooms (
+id INT AUTO_INCREMENT PRIMARY KEY,
+room_type VARCHAR(50) NOT NULL,
+description TEXT,
+price DECIMAL(10,2) NOT NULL,
+amenities VARCHAR(255),
+capacity INT NOT NULL,
+availability_status VARCHAR(20) NOT NULL DEFAULT 'available'
+);
+
+CREATE TABLE Bookings (
+id INT AUTO_INCREMENT PRIMARY KEY,
+guest_id INT NOT NULL,
+room_id INT NOT NULL,
+checkin_date DATE NOT NULL,
+checkout_date DATE NOT NULL,
+booking_status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
+payment_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+date_created DATETIME DEFAULT CURRENT_TIMESTAMP,
+date_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (guest_id) REFERENCES Guests(id),
+FOREIGN KEY (room_id) REFERENCES Rooms(id)
+);
+
+CREATE TABLE Reviews (
+id INT AUTO_INCREMENT PRIMARY KEY,
+reviewer_info VARCHAR(150),
+rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+review_text TEXT,
+submission_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+approval_status VARCHAR(20) NOT NULL DEFAULT 'pending'
+);
+
